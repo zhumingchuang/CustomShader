@@ -18,6 +18,7 @@ Shader "CustomShader_2"
     {
         Pass
         {
+            //半透明效果
            Blend SrcAlpha OneMinusSrcAlpha
             //剔除模式
             Cull [_CullMode]

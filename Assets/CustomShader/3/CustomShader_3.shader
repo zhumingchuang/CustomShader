@@ -16,13 +16,16 @@ Shader "CustomShader_3"
     {
         Tags
         {
+            //半透明需要修改半透明的渲染队列
             "Queue"="Transparent"
         }
         Pass
         {
             ZWrite off
-            //Blend SrcAlpha OneMinusSrcAlpha
+            //Blend SrcAlpha OneMinusSrcAlpha //半透明效果
+            //柔和叠加效果
             Blend SrcAlpha One
+            
             //剔除模式
             Cull [_CullMode]
 
@@ -69,6 +72,7 @@ Shader "CustomShader_3"
             float4 frag(v2f i):SV_Target
             {
                 half3 col = _MainColor.xyz * _Emiss;
+                //saturate限制数值为0-1
                 half alpha = saturate(tex2D(_MainTex, i.uv).r * _MainColor.a * _Emiss);
                 return float4(col, alpha);
             }
